@@ -4,8 +4,7 @@ package ua.torrino;
 import me.postaddict.instagram.scraper.domain.Account;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,41 +20,68 @@ public class ExcelWritter {
         this.account = account;
     }
 
-    public boolean writeInFile() {
+    public boolean writeInFile() throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Data from Account");
-        Object[][] data = {
-                {"douchebag id", "douchebag name", "douchebag biograph","douchebag ugly avatar url","The ugly media of douchebag"},
-                {account.id, account.fullName, account.biography, account.profilePicUrl,account, "null"}
-        };
+        XSSFSheet spreadsheet = workbook.createSheet("DataGraber");
+        XSSFCellStyle style1 = workbook.createCellStyle();
 
-        int rowNum = 0;
-        System.out.println("Creating excel");
-
-        for (Object[] datum : data) {
-            Row row = sheet.createRow(rowNum++);
-            int colNum = 0;
-            for (Object field : datum) {
-                Cell cell = row.createCell(colNum++);
-                if (field instanceof String) {
-                    cell.setCellValue((String) field);
-                } else if (field instanceof Long) {
-                    cell.setCellValue((Long) field);
-                }
-            }
+        for(int i = 0; i< 8;i++) {
+            spreadsheet.setColumnWidth(i, 4000);
         }
+        spreadsheet.setColumnWidth(4, 8000);
 
-        try {
-            FileOutputStream outputStream = new FileOutputStream(file.getName());
-            workbook.write(outputStream);
-            workbook.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        XSSFRow row = spreadsheet.createRow((short) 0);
+        XSSFCell cell = (XSSFCell) row.createCell((short) 0);
+        cell.setCellValue("user_id");
+        row = spreadsheet.createRow((short) 1);
+        row.createCell(0).setCellValue(account.id);
 
-        System.out.println("Done");
+        row = spreadsheet.getRow(0);
+        row.createCell(1).setCellValue("user_name");
+        row = spreadsheet.getRow(1);
+        row.createCell(1).setCellValue(account.username);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(2).setCellValue("full_name");
+        row = spreadsheet.getRow(1);
+        row.createCell(2).setCellValue(account.fullName);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(3).setCellValue("bio");
+        row = spreadsheet.getRow(1);
+        cell = (XSSFCell) row.createCell(3);
+        cell.setCellValue(account.biography);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(4).setCellValue("profile_pic_url");
+        row = spreadsheet.getRow(1);
+        row.createCell(4).setCellValue(account.profilePicUrl);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(5).setCellValue("media_count");
+        row = spreadsheet.getRow(1);
+        row.createCell(5).setCellValue(account.mediaCount);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(6).setCellValue("following_count");
+        row = spreadsheet.getRow(1);
+        row.createCell(6).setCellValue(account.followsCount);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(7).setCellValue("followed_by");
+        row = spreadsheet.getRow(1);
+        row.createCell(7).setCellValue(account.followedByCount);
+
+        row = spreadsheet.getRow(0);
+        row.createCell(8).setCellValue("is_private");
+        row = spreadsheet.getRow(1);
+        row.createCell(8).setCellValue(account.isPrivate);
+
+        FileOutputStream out = new FileOutputStream(
+                new File("cellstyle.xlsx"));
+        workbook.write(out);
+        out.close();
+        System.out.println("cellstyle.xlsx written successfully");
         return true;
     }
 }

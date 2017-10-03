@@ -22,9 +22,9 @@ public class Main {
         client.basePage();
 
         UserNameScan userNameScan = new UserNameScan();
-        String logName = userNameScan.scan();
-
-        if(userNameScan.checkAccount()) {
+//        String logName = userNameScan.scan();
+        String logName = "alexander_tor";
+//        if(userNameScan.checkAccount()) {
             account = client.getAccountByUsername(logName);
 
             excelWritter = new ExcelWritter(new File("DataGraber","DataGraber.xlsx"),account);
@@ -40,4 +40,4 @@ public class Main {
                 System.out.println(i + ": " + medias.get(i).imageUrls.high);
         }
     }
-}
+//}
