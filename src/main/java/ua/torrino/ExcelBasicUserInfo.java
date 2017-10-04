@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 
-public class ExcelWritter {
+public class ExcelBasicUserInfo extends Excel {
     private File file;
     private Account account;
 
-    public ExcelWritter(File file, Account account) {
+    public ExcelBasicUserInfo(File file, Account account) {
         this.file = file;
         this.account = account;
     }
@@ -35,7 +35,7 @@ public class ExcelWritter {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("DataGraber");
-        //Setting up width
+        //Setting up widtha
         for(int i = 0; i< header.length;i++) {
             spreadsheet.setColumnWidth(i, 6000);
         }
@@ -50,13 +50,15 @@ public class ExcelWritter {
         }
 
         FileOutputStream out = new FileOutputStream(
-                new File("cellstyle.xlsx"));
+                new File("DataGraberBasic.xlsx"));
         workbook.write(out);
         out.close();
-        System.out.println("cellstyle.xlsx written successfully");
+        System.out.println("DataGraberBasic.xlsx written successfully");
         return true;
     }
-
-
+    // Getting Data back;
+    public boolean readFromFile() {
+        return false;
+    }
 }
 

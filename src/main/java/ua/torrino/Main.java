@@ -14,7 +14,8 @@ public class Main {
 
     private static Account account;
     private static AnonymousInsta client;
-    private static ExcelWritter excelWritter;
+    private static Excel excelBasicUserInfo;
+    private static Excel excelUserMedia;
 
     public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException {
 
@@ -26,10 +27,10 @@ public class Main {
        // String logName = "alexander_tor";
         if(userNameScan.checkAccount()) {
             account = client.getAccountByUsername(logName);
-
-            excelWritter = new ExcelWritter(new File("DataGraber","DataGraber.xlsx"),account);
-            excelWritter.writeInFile();
-
+            excelBasicUserInfo = new ExcelBasicUserInfo(new File("DataGraber","DataGraber.xlsx"),account);
+            excelBasicUserInfo.writeInFile();
+            excelUserMedia = new ExcelUserMedia(new File("DataGraberMedia","DataGraberMedia.xlsx"),client,logName);
+            excelUserMedia.writeInFile();
             System.out.println("douchebag id:\t" + account.id);
             System.out.println("douchebag name:\t" + account.username);
             System.out.println("douchebag biography:\t" + account.biography);

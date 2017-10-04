@@ -11,8 +11,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 
 class AnnonInstance {
-
-
      static Instagram getInstance(){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
