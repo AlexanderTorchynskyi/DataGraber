@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelWritter {
     private File file;
@@ -21,6 +24,11 @@ public class ExcelWritter {
     }
 
     public boolean writeInFile() throws IOException {
+
+        Field[] header = account.getClass().getFields();
+        for (Field field:header) {
+            System.out.println(field.getName());
+        }
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("DataGraber");
         XSSFCellStyle style1 = workbook.createCellStyle();
