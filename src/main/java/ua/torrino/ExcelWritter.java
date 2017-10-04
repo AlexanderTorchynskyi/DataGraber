@@ -2,17 +2,13 @@ package ua.torrino;
 
 
 import me.postaddict.instagram.scraper.domain.Account;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
-
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class ExcelWritter {
     private File file;
@@ -23,67 +19,38 @@ public class ExcelWritter {
         this.account = account;
     }
 
-    public boolean writeInFile() throws IOException {
-
-        Field[] header = account.getClass().getFields();
-        for (Field field:header) {
-            System.out.println(field.getName());
+    private String getField(Account account, Field fields) throws NoSuchFieldException, IllegalAccessException {
+        String accountValue = null;
+        try {
+            accountValue = account.getClass().getField(fields.getName()).get(account).toString();
+        } catch (NullPointerException e) {
+            accountValue = "empty";
         }
+        return accountValue;
+    }
+
+    public boolean writeInFile() throws IOException, NoSuchFieldException, IllegalAccessException {
+        //Get the header properties for our excel file;
+        Field[] header = account.getClass().getFields();
+
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("DataGraber");
         XSSFCellStyle style1 = workbook.createCellStyle();
-
-        for(int i = 0; i< 8;i++) {
+        for(int i = 0; i< header.length;i++) {
             spreadsheet.setColumnWidth(i, 4000);
         }
-        spreadsheet.setColumnWidth(4, 8000);
-
-        XSSFRow row = spreadsheet.createRow((short) 0);
-        XSSFCell cell = (XSSFCell) row.createCell((short) 0);
-        cell.setCellValue("user_id");
-        row = spreadsheet.createRow((short) 1);
-        row.createCell(0).setCellValue(account.id);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(1).setCellValue("user_name");
-        row = spreadsheet.getRow(1);
-        row.createCell(1).setCellValue(account.username);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(2).setCellValue("full_name");
-        row = spreadsheet.getRow(1);
-        row.createCell(2).setCellValue(account.fullName);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(3).setCellValue("bio");
-        row = spreadsheet.getRow(1);
-        cell = (XSSFCell) row.createCell(3);
-        cell.setCellValue(account.biography);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(4).setCellValue("profile_pic_url");
-        row = spreadsheet.getRow(1);
-        row.createCell(4).setCellValue(account.profilePicUrl);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(5).setCellValue("media_count");
-        row = spreadsheet.getRow(1);
-        row.createCell(5).setCellValue(account.mediaCount);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(6).setCellValue("following_count");
-        row = spreadsheet.getRow(1);
-        row.createCell(6).setCellValue(account.followsCount);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(7).setCellValue("followed_by");
-        row = spreadsheet.getRow(1);
-        row.createCell(7).setCellValue(account.followedByCount);
-
-        row = spreadsheet.getRow(0);
-        row.createCell(8).setCellValue("is_private");
-        row = spreadsheet.getRow(1);
-        row.createCell(8).setCellValue(account.isPrivate);
+        //Creating rows
+        XSSFRow row  = spreadsheet.createRow((short)0);
+        for(int i  = 0; i<header.length; i++){
+            row.createCell(i).setCellValue(header[i].getName());
+        }
+        row = spreadsheet.createRow((short)1);
+        System.out.println("___________________");
+        System.out.println(account.getClass().getDeclaredField(header[1].getName()).get(account));
+        System.out.println("_________________");
+        for (int i = 0;i<header.length;i++){
+            row.createCell(i).setCellValue(getField(account,header[i]));
+        }
 
         FileOutputStream out = new FileOutputStream(
                 new File("cellstyle.xlsx"));
@@ -92,5 +59,7 @@ public class ExcelWritter {
         System.out.println("cellstyle.xlsx written successfully");
         return true;
     }
+
+
 }
 

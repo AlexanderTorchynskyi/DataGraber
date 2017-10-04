@@ -16,7 +16,7 @@ public class Main {
     private static AnonymousInsta client;
     private static ExcelWritter excelWritter;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException {
 
         client = AnnonInstance.getInstance();
         client.basePage();
