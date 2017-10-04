@@ -35,19 +35,16 @@ public class ExcelWritter {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("DataGraber");
-        XSSFCellStyle style1 = workbook.createCellStyle();
+        //Setting up width
         for(int i = 0; i< header.length;i++) {
-            spreadsheet.setColumnWidth(i, 4000);
+            spreadsheet.setColumnWidth(i, 6000);
         }
-        //Creating rows
+        //Creating 2 rows for. The first for names of fields and the second is for values;
         XSSFRow row  = spreadsheet.createRow((short)0);
         for(int i  = 0; i<header.length; i++){
             row.createCell(i).setCellValue(header[i].getName());
         }
         row = spreadsheet.createRow((short)1);
-        System.out.println("___________________");
-        System.out.println(account.getClass().getDeclaredField(header[1].getName()).get(account));
-        System.out.println("_________________");
         for (int i = 0;i<header.length;i++){
             row.createCell(i).setCellValue(getField(account,header[i]));
         }
