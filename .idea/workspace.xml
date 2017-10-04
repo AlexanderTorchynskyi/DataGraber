@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e106e3d-89f9-4475-b6fa-ce4449100205" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ua/torrino/Excel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ua/torrino/ExcelUserMedia.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ua/torrino/ExcelWritter.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cellstyle.xlsx" afterPath="$PROJECT_DIR$/cellstyle.xlsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ua/torrino/AnnonInstance.class" afterPath="$PROJECT_DIR$/target/classes/ua/torrino/AnnonInstance.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ua/torrino/Main.class" afterPath="$PROJECT_DIR$/target/classes/ua/torrino/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ua/torrino/UserNameScan.class" afterPath="$PROJECT_DIR$/target/classes/ua/torrino/UserNameScan.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ua/torrino/AnnonInstance.java" afterPath="$PROJECT_DIR$/src/main/java/ua/torrino/AnnonInstance.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ua/torrino/Main.java" afterPath="$PROJECT_DIR$/src/main/java/ua/torrino/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ua/torrino/UserNameScan.java" afterPath="$PROJECT_DIR$/src/main/java/ua/torrino/UserNameScan.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/ua/torrino/ExcelWritter.java" afterPath="$PROJECT_DIR$/src/main/java/ua/torrino/ExcelBasicUserInfo.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -754,11 +745,18 @@
       <option name="project" value="LOCAL" />
       <updated>1507150215998</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Created ExcelUserMedia class">
+      <created>1507154709186</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1507154709186</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24247000" />
+    <option name="totallyTimeSpent" value="24732000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -830,7 +828,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="working on exporting method" />
     <MESSAGE value="Some little fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some little fixes" />
+    <MESSAGE value="Created ExcelUserMedia class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created ExcelUserMedia class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
