@@ -3,7 +3,7 @@ package ua.torrino;
 import java.io.IOException;
 
 
-abstract class Excel {
+abstract class Excel extends FileWork {
     /*
      * Basic methods to work with excel. I will spread it step by step.
      */
