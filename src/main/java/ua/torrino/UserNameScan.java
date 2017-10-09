@@ -5,14 +5,11 @@ import java.util.Scanner;
 
 class UserNameScan {
     private AccountChecker accountChecker;
-
-
-
     private String LoggName;
 
     UserNameScan() {  }
 
-    String scan(){
+        String scan(){
         System.out.println("Hello little douchebag. Give me the fucking username of this bitch you want to have in a dock");
         System.out.print("Account Log: ");
         Scanner in = new Scanner(System.in);
@@ -21,7 +18,6 @@ class UserNameScan {
         System.out.println(LoggName);
         return LoggName;
     }
-
     public String getLoggName() {
         return LoggName;
     }

@@ -1,6 +1,4 @@
 package ua.torrino;
-
-
 import me.postaddict.instagram.scraper.AnonymousInsta;
 import me.postaddict.instagram.scraper.domain.Account;
 import me.postaddict.instagram.scraper.domain.Media;
@@ -33,13 +31,14 @@ public class Main {
             excelBasicUserInfo.writeInFile();
             excelUserMedia = new ExcelUserMedia(new File("DataGraberMedia","DataGraberMedia.xlsx"),client,logName);
             excelUserMedia.writeInFile();
-
-            System.out.println("douchebag id:\t" + account.id);
-            System.out.println("douchebag name:\t" + account.username);
-            System.out.println("douchebag biography:\t" + account.biography);
-            System.out.println("douchebag ugly avatar url:\t" + account.profilePicUrl);
-            System.out.println("The ugly media of douchebag");
-            List<Media> medias = client.getMedias(logName, account.mediaCount);
+            excelUserMedia.readFromFile();
+//
+//            System.out.println("douchebag id:\t" + account.id);
+//            System.out.println("douchebag name:\t" + account.username);
+//            System.out.println("douchebag biography:\t" + account.biography);
+//            System.out.println("douchebag ugly avatar url:\t" + account.profilePicUrl);
+//            System.out.println("The ugly media of douchebag");
+//            List<Media> medias = client.getMedias(logName, account.mediaCount);
 //            for (int i = 0; i < account.mediaCount; i++)
 //                System.out.println(i + ": " + medias.get(i).imageUrls.high);
         }

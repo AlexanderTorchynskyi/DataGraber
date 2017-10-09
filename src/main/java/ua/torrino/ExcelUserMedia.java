@@ -3,17 +3,19 @@ package ua.torrino;
 import me.postaddict.instagram.scraper.AnonymousInsta;
 import me.postaddict.instagram.scraper.domain.Account;
 import me.postaddict.instagram.scraper.domain.Media;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.Iterator;
 import java.util.List;
 
 public class ExcelUserMedia extends Excel {
 
+    private XSSFRow row;
     private File file;
     private AnonymousInsta client;
     private Account account;
@@ -48,7 +50,19 @@ public class ExcelUserMedia extends Excel {
         return true;
     }
 
-    public boolean readFromFile() {
+    public boolean readFromFile() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(new File("DataGraberMedia.xlsx"));
+        XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator<Row>  rowIterator = sheet.iterator();
+        while(rowIterator.hasNext()) {
+            row = (XSSFRow) rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                System.out.println(cell.getStringCellValue());
+            }
+        }
         return false;
     }
 }

@@ -1,5 +1,6 @@
 package ua.torrino;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -9,6 +10,6 @@ abstract class Excel extends FileWork {
      */
     public abstract boolean writeInFile() throws  IOException, NoSuchFieldException, IllegalAccessException;
 
-    public abstract boolean readFromFile();
+    public abstract boolean readFromFile() throws IOException;
 
 }
