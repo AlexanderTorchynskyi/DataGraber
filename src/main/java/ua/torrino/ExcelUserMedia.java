@@ -10,6 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class ExcelUserMedia extends Excel {
     private AnonymousInsta client;
     private Account account;
     private String logName;
+    private List<String> mediaURLsFromFile;
+    private List<String> captionsFromFile;
 
     public ExcelUserMedia(File file , AnonymousInsta client,String logName) {
         this.client = client;
@@ -27,8 +30,15 @@ public class ExcelUserMedia extends Excel {
         this.logName = logName;
     }
 
-    public boolean writeInFile() throws IOException, NoSuchFieldException, IllegalAccessException {
+    public List<String> getMediaURLsFromFile() {
+        return mediaURLsFromFile;
+    }
 
+    public List<String> getCaptionsFromFile() {
+        return captionsFromFile;
+    }
+
+    public boolean writeInFile() throws IOException, NoSuchFieldException, IllegalAccessException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("DataGraberMedia");
         XSSFRow row = spreadsheet.createRow(0);
@@ -47,10 +57,15 @@ public class ExcelUserMedia extends Excel {
                 new File("DataGraberMedia.xlsx"));
         workbook.write(out);
         out.close();
+        //Not finished
         return true;
     }
 
     public boolean readFromFile() throws IOException {
+        //dont judge too hard for that;
+        mediaURLsFromFile = new ArrayList<String>();
+        captionsFromFile = new ArrayList<String>();
+        int count = 0;
         FileInputStream fileInputStream = new FileInputStream(new File("DataGraberMedia.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
         XSSFSheet sheet = workbook.getSheetAt(0);
@@ -59,10 +74,14 @@ public class ExcelUserMedia extends Excel {
             row = (XSSFRow) rowIterator.next();
             Iterator<Cell> cellIterator = row.cellIterator();
             while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
-                System.out.println(cell.getStringCellValue());
+                if(count%2==0){
+                     mediaURLsFromFile.add(cellIterator.next().getStringCellValue());
+                }
+                else
+                    captionsFromFile.add(cellIterator.next().getStringCellValue());
             }
         }
-        return false;
+        //Not finished
+      return  true;
     }
 }
