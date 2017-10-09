@@ -63,9 +63,9 @@ public class ExcelUserMedia extends Excel {
 
     public boolean readFromFile() throws IOException {
         //dont judge too hard for that;
+        int count = 0;
         mediaURLsFromFile = new ArrayList<String>();
         captionsFromFile = new ArrayList<String>();
-        int count = 0;
         FileInputStream fileInputStream = new FileInputStream(new File("DataGraberMedia.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
         XSSFSheet sheet = workbook.getSheetAt(0);
@@ -79,6 +79,7 @@ public class ExcelUserMedia extends Excel {
                 }
                 else
                     captionsFromFile.add(cellIterator.next().getStringCellValue());
+                count++;
             }
         }
         //Not finished

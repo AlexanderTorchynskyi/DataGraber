@@ -12,8 +12,8 @@ public class Main {
 
     private static Account account;
     private static AnonymousInsta client;
-    private static Excel excelBasicUserInfo;
-    private static Excel excelUserMedia;
+    private static ExcelBasicUserInfo excelBasicUserInfo;
+    private static ExcelUserMedia excelUserMedia;
 
     public static void main(String[] args) throws IOException, NoSuchFieldException, IllegalAccessException {
 
@@ -29,9 +29,15 @@ public class Main {
 //            System.out.println(client.getLocationMediasById("",));
             excelBasicUserInfo = new ExcelBasicUserInfo(new File("DataGraber","DataGraber.xlsx"),account);
             excelBasicUserInfo.writeInFile();
+            excelBasicUserInfo.readFromFile();
+
             excelUserMedia = new ExcelUserMedia(new File("DataGraberMedia","DataGraberMedia.xlsx"),client,logName);
             excelUserMedia.writeInFile();
             excelUserMedia.readFromFile();
+            //System.out.println(excelBasicUserInfo.getBasicInfoMap().values());
+            System.out.println( excelUserMedia.getCaptionsFromFile());
+            System.out.println(excelUserMedia.getMediaURLsFromFile());
+
 //
 //            System.out.println("douchebag id:\t" + account.id);
 //            System.out.println("douchebag name:\t" + account.username);

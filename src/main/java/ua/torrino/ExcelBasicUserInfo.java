@@ -2,17 +2,26 @@ package ua.torrino;
 
 
 import me.postaddict.instagram.scraper.domain.Account;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
-import java.io.File;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+
 import java.lang.reflect.Field;
-
+import java.util.Iterator;
+import java.util.Map;
 
 public class ExcelBasicUserInfo extends Excel {
+
     private File file;
     private Account account;
+    private XSSFRow row;
+    private Map<String,String> basicInfoMap;
+
+    public Map<String, String> getBasicInfoMap() {
+        return basicInfoMap;
+    }
 
     public ExcelBasicUserInfo(File file, Account account) {
         this.file = file;
@@ -35,7 +44,7 @@ public class ExcelBasicUserInfo extends Excel {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("DataGraber");
-        //Setting up widtha
+        //Setting up width;
         for(int i = 0; i< header.length;i++) {
             spreadsheet.setColumnWidth(i, 6000);
         }
@@ -57,7 +66,19 @@ public class ExcelBasicUserInfo extends Excel {
         return true;
     }
     // Getting Data back;
-    public boolean readFromFile() {
+    public boolean readFromFile() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(new File("DataGraberBasic.xlsx"));
+        XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.iterator();
+        while(rowIterator.hasNext()) {
+            row = (XSSFRow) rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            while (cellIterator.hasNext()) {
+                   // basicInfoMap.put(cellIterator.next().getStringCellValue(),cellIterator.next().getStringCellValue());
+                System.out.println(cellIterator.next().getStringCellValue());
+            }
+        }
         return false;
     }
 }
