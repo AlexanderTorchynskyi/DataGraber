@@ -34,6 +34,7 @@ public class Main {
             excelUserMedia = new ExcelUserMedia(new File("DataGraberMedia","DataGraberMedia.xlsx"),client,logName);
             excelUserMedia.writeInFile();
             excelUserMedia.readFromFile();
+            System.err.println(excelBasicUserInfo.getBasicMap());
             //System.out.println(excelBasicUserInfo.getBasicInfoMap().values());
             System.out.println( excelUserMedia.getCaptionsFromFile());
             System.out.println(excelUserMedia.getMediaURLsFromFile());

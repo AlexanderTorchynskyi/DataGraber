@@ -1,6 +1,7 @@
 package ua.torrino;
 
 
+import java.lang.String;
 import me.postaddict.instagram.scraper.domain.Account;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -9,25 +10,26 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.*;
 
 import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class ExcelBasicUserInfo extends Excel {
 
     private File file;
     private Account account;
     private XSSFRow row;
-    private Map<String,String> basicInfoMap;
-
-    public Map<String, String> getBasicInfoMap() {
-        return basicInfoMap;
-    }
+    private Map<String, java.lang.String> innerMap;
+    private Map<String,Map<String,String>> basicMap;
+    private List<String> keyList;
+    private List<String> listValues;
+    private String userNameKey = "userName";
 
     public ExcelBasicUserInfo(File file, Account account) {
         this.file = file;
         this.account = account;
     }
-
+    public Map<String, Map<String, String>> getBasicMap() {
+        return basicMap;
+    }
     private String getField(Account account, Field fields) throws NoSuchFieldException, IllegalAccessException {
         String accountValue = null;
         try {
@@ -65,8 +67,20 @@ public class ExcelBasicUserInfo extends Excel {
         System.out.println("DataGraberBasic.xlsx written successfully");
         return true;
     }
-    // Getting Data back;
+
+    /*
+    *The view of back result is Map<userName,Map<field,value of filed>>
+    *So it's readable and pretty easy to get all data you need by providing
+    * username as key;
+    *
+    */
     public boolean readFromFile() throws IOException {
+        boolean firstIn = true;
+        int index = 0;
+        listValues = new ArrayList<String>();
+        keyList = new ArrayList<>();
+        innerMap = new LinkedHashMap<>();
+        basicMap = new LinkedHashMap<>();
         FileInputStream fileInputStream = new FileInputStream(new File("DataGraberBasic.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
         XSSFSheet sheet = workbook.getSheetAt(0);
@@ -74,12 +88,25 @@ public class ExcelBasicUserInfo extends Excel {
         while(rowIterator.hasNext()) {
             row = (XSSFRow) rowIterator.next();
             Iterator<Cell> cellIterator = row.cellIterator();
-            while (cellIterator.hasNext()) {
-                   // basicInfoMap.put(cellIterator.next().getStringCellValue(),cellIterator.next().getStringCellValue());
-                System.out.println(cellIterator.next().getStringCellValue());
+            while (cellIterator.hasNext()){
+                //Read the columns from spreadsheet;
+                if(firstIn){
+                    keyList.add(cellIterator.next().getStringCellValue());
+                }
+                else {
+                    listValues.add(cellIterator.next().getStringCellValue());
+                    innerMap.put(keyList.get(index),listValues.get(index));
+                    index++;
+                }
             }
+            if(!listValues.isEmpty()) {
+                userNameKey = listValues.get(0);
+                basicMap.put(userNameKey, innerMap);
+            }
+            listValues = new ArrayList<>();
+            firstIn = false;
         }
-        return false;
+        return true;
     }
 }
 
