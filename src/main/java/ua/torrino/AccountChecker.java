@@ -17,7 +17,7 @@ import java.io.IOException;
        return check();
     }
 
-    boolean IsNotPrivate(){
+    boolean isNotPrivate(){
         Account account = new Account();
         return !account.isPrivate;
     }
