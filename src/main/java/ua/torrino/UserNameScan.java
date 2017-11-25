@@ -23,6 +23,6 @@ class UserNameScan {
     }
     boolean checkAccount(){
         accountChecker = new AccountChecker(LoggName);
-        return accountChecker.checkExistence() && accountChecker.isNotPrivate();
+        return accountChecker.checkExistence();
     }
 }

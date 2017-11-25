@@ -1,7 +1,7 @@
 package ua.torrino;
 import me.postaddict.instagram.scraper.AnonymousInsta;
-import me.postaddict.instagram.scraper.domain.Account;
-import me.postaddict.instagram.scraper.domain.Media;
+
+import me.postaddict.instagram.scraper.model.Account;
 
 import java.io.File;
 import java.io.IOException;

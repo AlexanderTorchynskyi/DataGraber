@@ -1,6 +1,6 @@
 package ua.torrino;
 
-import me.postaddict.instagram.scraper.domain.Account;
+import me.postaddict.instagram.scraper.model.Account;
 
 import java.io.IOException;
 
@@ -17,10 +17,10 @@ import java.io.IOException;
        return check();
     }
 
-    boolean isNotPrivate(){
-        Account account = new Account();
-        return !account.isPrivate;
-    }
+//    boolean isNotPrivate(){
+//        Account account = new Account();
+//        return !account.getIsPrivate();
+//    }
 
     private boolean check(){
         try {

@@ -1,8 +1,9 @@
 package ua.torrino;
 
 import me.postaddict.instagram.scraper.AnonymousInsta;
-import me.postaddict.instagram.scraper.domain.Account;
-import me.postaddict.instagram.scraper.domain.Media;
+import me.postaddict.instagram.scraper.model.Account;
+import me.postaddict.instagram.scraper.model.Media;
+import me.postaddict.instagram.scraper.model.PageObject;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -46,12 +47,15 @@ public class ExcelUserMedia extends Excel {
         row.createCell(1).setCellValue("Captions");
         spreadsheet.setColumnWidth(0,23000);
         spreadsheet.setColumnWidth(1,18000);
+        PageObject<Media> list = client.getMedias(logName,client.getAccountByUsername(logName).getMedia().getCount());
 
-        List<Media> mediaList = client.getMedias(logName,client.getAccountByUsername(logName).mediaCount);
+        List<Media> mediaList = list.getNodes();
+
+        // client.getMedias(logName,client.getAccountByUsername(logName).getMedia().getCount());
        for(int i = 0;i<mediaList.size();i++) {
            row = spreadsheet.createRow(i+1);
-           row.createCell(0).setCellValue(String.valueOf(mediaList.get(i).imageUrls.high));
-           row.createCell(1).setCellValue(String.valueOf(mediaList.get(i).caption));
+           row.createCell(0).setCellValue(String.valueOf(mediaList.get(i).getMediaResource().getDisplayUrl()));
+           row.createCell(1).setCellValue(String.valueOf(mediaList.get(i).getCaption()));
        }
         FileOutputStream out = new FileOutputStream(
                 new File("DataGraberMedia.xlsx"));

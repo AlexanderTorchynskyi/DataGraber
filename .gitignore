@@ -1,4 +1,5 @@
 #Idea 
 .idea
 *.xlsx
-
+/target/
+.DataGraber.*

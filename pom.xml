@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.github.postaddictme</groupId>
             <artifactId>instagram-java-scraper</artifactId>
-            <version>bce69a87d8096af6b2a606e72269b5e211d73b7d</version>
+            <version>b9017bbde274a003e9bd6cd89c590cca8a06b253</version>
         </dependency>
 
         <dependency>

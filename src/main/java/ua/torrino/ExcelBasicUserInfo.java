@@ -2,7 +2,7 @@ package ua.torrino;
 
 
 import java.lang.String;
-import me.postaddict.instagram.scraper.domain.Account;
+import me.postaddict.instagram.scraper.model.Account;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
